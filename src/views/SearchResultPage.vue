@@ -1,13 +1,16 @@
 <template>
   <div class="search-result-page">
     <div class="fixed-header">
-      <SearchInputBar v-model:keyword="keyword" @search="onSearch" />
-      <div v-if="keyword" class="search-keyword-tip">
+      <SearchInputBar v-model:keyword="keyword" @search="onSearch" @input="onInput" />
+      <div v-if="keyword && !showResult" class="suggest-area">
+        <SearchSuggestList :keyword="keyword" :recommend-list="recommendList" :text-list="textList" @select="handleSuggestSelect" />
+      </div>
+      <div v-if="keyword && showResult" class="search-keyword-tip">
         与 <span class="highlight">{{ keyword }}</span> 相关的内容
       </div>
     </div>
     <div class="content-area">
-      <InfiniteScroll :loading="loading" :has-more="hasMore" @loadMore="loadMore">
+      <InfiniteScroll v-if="showResult" :loading="loading" :has-more="hasMore" @loadMore="loadMore">
         <SearchVideoGrid :keyword="keyword" :videos="displayVideos" @select="handleVideoSelect" />
       </InfiniteScroll>
     </div>
@@ -19,6 +22,7 @@ import { ref, onMounted } from 'vue'
 import SearchInputBar from '@/components/search/SearchInputBar.vue'
 import SearchVideoGrid from '@/components/search/SearchVideoGrid.vue'
 import InfiniteScroll from '@/components/common/InfiniteScroll.vue'
+import SearchSuggestList from '@/components/search/SearchSuggestList.vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -29,6 +33,59 @@ const loading = ref(false)
 const hasMore = ref(true)
 const PAGE_SIZE = 10
 const MAX_TOTAL = 40
+const showResult = ref(true)
+const recommendList = ref<any[]>([])
+const textList = ref<string[]>([])
+
+const allRecommend = [
+  {
+    id: 1,
+    cover: 'https://vcover-vt-pic.puui.qpic.cn/vcover_vt_pic/0/mzc00200rb0xufo1745377997565/0',
+    title: '我的后半生',
+    tag: '电视剧',
+    desc: '2025 · 张国立 佟大为'
+  },
+  {
+    id: 2,
+    cover: 'https://vcover-vt-pic.puui.qpic.cn/vcover_vt_pic/0/mzc00200rb0xufo1745377997565/0',
+    title: '我的前半生',
+    tag: '电视剧',
+    desc: '2017 · 斓东 马伊琍'
+  }
+]
+const allText = [
+  '我的前半生第二部电视剧全',
+  '我的团长我的团',
+  '我的人间烟火',
+  '我的世界大电影',
+  '我的二哥二嫂电视剧全部40集',
+  '我的阿勒泰'
+]
+
+function onInput(val: string) {
+  keyword.value = val
+  showResult.value = false
+  updateSuggest()
+}
+function onSearch(val: string) {
+  keyword.value = val
+  showResult.value = true
+  resetResult()
+}
+function updateSuggest() {
+  if (!keyword.value) {
+    recommendList.value = []
+    textList.value = []
+    return
+  }
+  recommendList.value = allRecommend.filter(item => item.title.includes(keyword.value))
+  textList.value = allText.filter(item => item.includes(keyword.value))
+}
+function handleSuggestSelect(val: string) {
+  keyword.value = val
+  showResult.value = true
+  resetResult()
+}
 
 function fakeVideo(idx: number) {
   const cats = [
@@ -56,13 +113,6 @@ function fakeVideo(idx: number) {
   }
 }
 
-function onSearch(val: string) {
-  if (!val) return
-  router.replace({ path: '/search-result', query: { keyword: val } })
-  keyword.value = val
-  resetResult()
-}
-
 function resetResult() {
   displayVideos.value = []
   hasMore.value = true
@@ -88,6 +138,7 @@ function handleVideoSelect(video: any) {
 }
 
 onMounted(() => {
+  updateSuggest()
   resetResult()
 })
 </script>

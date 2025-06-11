@@ -29,14 +29,14 @@ const router = useRouter()
 const allRecommend = [
   {
     id: 1,
-    cover: 'https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2880070276.webp',
+    cover: 'https://vcover-vt-pic.puui.qpic.cn/vcover_vt_pic/0/mzc00200rb0xufo1745377997565/0',
     title: '我的后半生',
     tag: '电视剧',
     desc: '2025 · 张国立 佟大为'
   },
   {
     id: 2,
-    cover: 'https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2455050536.webp',
+    cover: 'https://vcover-vt-pic.puui.qpic.cn/vcover_vt_pic/0/mzc00200rb0xufo1745377997565/0',
     title: '我的前半生',
     tag: '电视剧',
     desc: '2017 · 斓东 马伊琍'
