@@ -3,7 +3,7 @@
     <div class="video-grid">
       <div class="video-card" v-for="video in videos" :key="video.id" @click="$emit('select', video)" style="cursor:pointer">
         <div class="thumb-wrap">
-          <ImageLoader :src="video.cover" :alt="video.title" />
+          <ThImage :src="video.cover" :alt="video.title" />
           <div class="episode-count">全{{ video.episodes }}集</div>
           <div class="video-info-bar">
             <span class="info-item">
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import ImageLoader from '@/components/common/ImageLoader/index.vue'
+import ThImage from '@/components/global/ThImage.vue'
 
 const props = defineProps<{
   keyword: string

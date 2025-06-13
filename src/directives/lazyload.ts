@@ -1,6 +1,4 @@
 import type { Directive, DirectiveBinding } from 'vue'
-import { createApp } from 'vue'
-import ImageLoader from '@/components/common/ImageLoader/index.vue'
 
 interface LoadingOptions {
   loading?: string
@@ -8,8 +6,8 @@ interface LoadingOptions {
 }
 
 const defaultOptions: LoadingOptions = {
-  loading: '/src/assets/images/loading-animation.gif',
-  error: '/src/assets/images/error.png'
+  loading: '@/assets/images/loading-animation.gif',
+  error: '@/assets/images/error.png'
 }
 
 const loadImage = (el: HTMLImageElement, src: string): Promise<void> => {
