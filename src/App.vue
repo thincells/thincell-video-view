@@ -24,7 +24,7 @@ const transitionName = computed(() =>
 @use '@/assets/styles/iconfont.scss';
 
 :root {
-  --background-color: #f6f7f9;
+  --background-color: #ffffff;
 }
 
 * {

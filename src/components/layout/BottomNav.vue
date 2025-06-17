@@ -1,7 +1,11 @@
 <template>
   <div class="bottom-nav">
     <div class="nav-item" :class="{active: activeIdx===0}" @click="go(0)">
-      <svg class="icon-home" viewBox="0 0 1024 1024" width="24" height="24"><path d="M512 128l384 320v416a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V448z" fill="#fff"/><path d="M512 128l384 320v416a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V448z" fill="#ff5c8a" fill-opacity=".15"/><path d="M512 128l384 320v416a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V448z" stroke="#ff5c8a" stroke-width="32" fill="none"/><path d="M384 896V640h256v256" stroke="#ff5c8a" stroke-width="32" fill="none"/></svg>
+      <svg class="icon-home" viewBox="0 0 1024 1024" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M192 448L512 192L832 448" stroke="#ff5c8a" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="256" y="448" width="512" height="320" rx="32" stroke="#ff5c8a" stroke-width="40" fill="none"/>
+        <rect x="416" y="608" width="192" height="160" rx="16" stroke="#ff5c8a" stroke-width="32" fill="none"/>
+      </svg>
       <span>首页</span>
     </div>
     <div class="nav-item" :class="{active: activeIdx===1}" @click="go(1)">
@@ -12,15 +16,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, watch, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
+const route = useRoute()
 const activeIdx = ref(0)
+
+function setActiveByRoute(path:string) {
+  if(path === '/profile') activeIdx.value = 1
+  else activeIdx.value = 0
+}
+
 function go(idx:number) {
   activeIdx.value = idx
-  if(idx===0) router.push('/')
+  if(idx===0) router.push('/home')
   else router.push('/profile')
 }
+
+onMounted(() => {
+  setActiveByRoute(route.path)
+})
+
+watch(() => route.path, (newPath) => {
+  setActiveByRoute(newPath)
+})
 </script>
 
 <style lang="scss" scoped>
