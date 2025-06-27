@@ -126,7 +126,7 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('https://ipfs.crossbell.io/ipfs/bafkreibbx4xm53cp6frlhwt2ewzca2gtu4twepwbm2zdjbbhgp56hrm4vy?img-quality=75&img-format=auto&img-onerror=redirect&img-width=1200') center center/cover no-repeat;
+  background: url('https://earth-blogs.oss-cn-beijing.aliyuncs.com/images/icon/beijing.svg');
   padding: 20px;
 }
 
