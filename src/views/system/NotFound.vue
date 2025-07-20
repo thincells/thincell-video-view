@@ -1,30 +1,24 @@
 <template>
-  <div class="not-found">
-    <div class="not-found__container">
-      <div class="not-found__content">
-        <div class="not-found__icon">
+  <main class="not-found">
+    <article class="not-found__container">
+      <section class="not-found__content">
+        <header class="not-found__icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10" />
             <line x1="15" y1="9" x2="9" y2="15" />
             <line x1="9" y1="9" x2="15" y2="15" />
           </svg>
-        </div>
+        </header>
         <h1 class="not-found__title">404</h1>
         <p class="not-found__subtitle">页面不存在</p>
-        <p class="not-found__description">
-          抱歉，您访问的页面不存在或已被删除
-        </p>
-        <div class="not-found__actions">
-          <el-button type="primary" @click="goHome">
-            返回首页
-          </el-button>
-          <el-button @click="goBack">
-            返回上页
-          </el-button>
-        </div>
-      </div>
-    </div>
-  </div>
+        <p class="not-found__description">抱歉，您访问的页面不存在或已被删除</p>
+        <footer class="not-found__actions">
+          <el-button type="primary" @click="goHome"> 返回首页 </el-button>
+          <el-button @click="goBack"> 返回上页 </el-button>
+        </footer>
+      </section>
+    </article>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -72,7 +66,7 @@ const goBack = () => {
   height: 80px;
   margin: 0 auto var(--spacing-lg);
   color: var(--danger-color);
-  
+
   svg {
     width: 100%;
     height: 100%;
@@ -112,18 +106,18 @@ const goBack = () => {
   .not-found__content {
     padding: var(--spacing-xl);
   }
-  
+
   .not-found__title {
     font-size: 48px;
   }
-  
+
   .not-found__subtitle {
     font-size: var(--font-size-lg);
   }
-  
+
   .not-found__actions {
     flex-direction: column;
     align-items: center;
   }
 }
-</style> 
+</style>

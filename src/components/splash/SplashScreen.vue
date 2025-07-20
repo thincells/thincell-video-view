@@ -1,23 +1,18 @@
 <template>
-  <div class="splash-screen" :class="{ 'fade-out': isFading }">
-    <div class="splash-countdown">{{ countdown }}s 跳过</div>
-    <div class="splash-content">
+  <section class="splash-screen" :class="{ 'fade-out': isFading }">
+    <header class="splash-countdown">{{ countdown }}s 跳过</header>
+    <main class="splash-content">
       <template v-if="type === 'video'">
-        <video
-          class="splash-media"
-          :src="src"
-          autoplay
-          muted
-          loop
-          playsinline
-        />
+        <video class="splash-media" :src="src" autoplay muted loop playsinline />
       </template>
       <template v-else>
         <img class="splash-media" :src="src" alt="Splash" />
       </template>
-      <div class="splash-title">{{ title }}</div>
-    </div>
-  </div>
+      <h1 class="splash-title">
+        {{ title }}
+      </h1>
+    </main>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -80,7 +75,7 @@ onMounted(() => {
   color: #fff;
   font-size: 1.1rem;
   font-weight: bold;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   padding: 6px 16px;
   border-radius: 16px;
   letter-spacing: 1px;
@@ -116,7 +111,7 @@ onMounted(() => {
   font-size: 2.2rem;
   color: #fff;
   font-weight: bold;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   text-align: center;
 }
 
@@ -132,4 +127,4 @@ onMounted(() => {
     padding: 4px 10px;
   }
 }
-</style> 
+</style>

@@ -1,65 +1,69 @@
 <template>
-  <div class="video-grid">
+  <section class="video-grid">
     <!-- Banner区域 -->
-    <div class="banner">
-      <div class="thumb-wrap">
+    <article class="banner">
+      <figure class="thumb-wrap">
         <ThImage :src="bannerData.poster" :alt="bannerData.title" />
-        <div class="episode-count">全{{ bannerData.episodes }}集</div>
-        <div class="recommend-tag" v-if="bannerData.isRecommend">
+        <figcaption class="episode-count">全{{ bannerData.episodes }}集</figcaption>
+        <div v-if="bannerData.isRecommend" class="recommend-tag">
           <span class="icon">✦</span>
           <span class="text">推荐</span>
         </div>
         <div class="video-info-bar">
           <span class="info-item">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff">
-              <path d="M3,3 L21,3 L21,21 L3,21 L3,3 Z M5,5 L5,19 L19,19 L19,5 L5,5 Z M9,8 L16,12 L9,16 L9,8 Z"/>
+              <path
+                d="M3,3 L21,3 L21,21 L3,21 L3,3 Z M5,5 L5,19 L19,19 L19,5 L5,5 Z M9,8 L16,12 L9,16 L9,8 Z"
+              />
             </svg>
             {{ bannerData.views }}
           </span>
           <span class="info-item time">{{ bannerData.duration }}</span>
         </div>
-      </div>
-      <div class="banner-title">{{bannerData.title}}</div>
-      <div class="video-meta">
+      </figure>
+      <h2 class="banner-title">
+        {{ bannerData.title }}
+      </h2>
+      <footer class="video-meta">
         <span class="up">UP · {{ bannerData.up }}</span>
         <span class="cat">{{ bannerData.cat }}</span>
-      </div>
-    </div>
-    
+      </footer>
+    </article>
+
     <!-- 视频列表区域 -->
-    <InfiniteScroll
-      :loading="loading"
-      :has-more="hasMore"
-      @load-more="loadMore"
-    >
-    <div class="grid-list">
-      <div v-for="(video, idx) in videos" :key="idx" class="video-card">
-        <div class="thumb-wrap">
+    <InfiniteScroll :loading="loading" :has-more="hasMore" @load-more="loadMore">
+      <section class="grid-list">
+        <article v-for="(video, idx) in videos" :key="idx" class="video-card">
+          <figure class="thumb-wrap">
             <ThImage :src="(video as any).poster" :alt="(video as any).title" />
-            <div class="episode-count">全{{ (video as any).episodes }}集</div>
-            <div class="recommend-tag" v-if="(video as any).isRecommend">
-            <span class="icon">✦</span>
-            <span class="text">推荐</span>
-          </div>
-          <div class="video-info-bar">
-            <span class="info-item">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff">
-                <path d="M3,3 L21,3 L21,21 L3,21 L3,3 Z M5,5 L5,19 L19,19 L19,5 L5,5 Z M9,8 L16,12 L9,16 L9,8 Z"/>
-              </svg>
+            <figcaption class="episode-count">全{{ (video as any).episodes }}集</figcaption>
+            <div v-if="(video as any).isRecommend" class="recommend-tag">
+              <span class="icon">✦</span>
+              <span class="text">推荐</span>
+            </div>
+            <div class="video-info-bar">
+              <span class="info-item">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff">
+                  <path
+                    d="M3,3 L21,3 L21,21 L3,21 L3,3 Z M5,5 L5,19 L19,19 L19,5 L5,5 Z M9,8 L16,12 L9,16 L9,8 Z"
+                  />
+                </svg>
                 {{ (video as any).views }}
-            </span>
+              </span>
               <span class="info-item time">{{ (video as any).duration }}</span>
             </div>
-          </div>
-          <div class="video-title text-ellipsis">{{(video as any).title}}</div>
-          <div class="video-meta">
+          </figure>
+          <h3 class="video-title text-ellipsis">
+            {{ (video as any).title }}
+          </h3>
+          <footer class="video-meta">
             <span class="up">UP · {{ (video as any).up }}</span>
             <span class="cat">{{ (video as any).cat }}</span>
-          </div>
-        </div>
-      </div>
+          </footer>
+        </article>
+      </section>
     </InfiniteScroll>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -67,7 +71,7 @@ import ThImage from '@/components/global/ThImage.vue'
 import InfiniteScroll from '@/components/common/InfiniteScroll.vue'
 import { defineProps, defineEmits } from 'vue'
 
-const props = defineProps({
+defineProps({
   videos: {
     type: Array,
     default: () => []
@@ -99,22 +103,22 @@ const bannerData = {
 .video-grid {
   padding: 10px 12px;
   background: #f7f7f7;
-  
+
   // Banner样式
   .banner {
     width: 100%;
     border-radius: 16px;
     background: #fff;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     margin-bottom: 14px;
-    
+
     .thumb-wrap {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
       background: #eee;
-      
+
       .th-image {
         position: absolute;
         top: 0;
@@ -149,7 +153,7 @@ const bannerData = {
         gap: 2px;
         box-shadow: 0 2px 8px rgba(255, 92, 138, 0.3);
         z-index: 2;
-        
+
         .icon {
           font-size: 14px;
         }
@@ -164,7 +168,11 @@ const bannerData = {
           top: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+          background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0) 100%
+          );
           border-radius: 4px;
         }
       }
@@ -180,9 +188,9 @@ const bannerData = {
         padding: 0 8px 6px 8px;
         font-size: 13px;
         color: #fff;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
         z-index: 2;
-        
+
         .info-item {
           display: flex;
           align-items: center;
@@ -195,7 +203,7 @@ const bannerData = {
         .time {
           margin-left: auto;
           font-size: 12px;
-          background: rgba(0,0,0,0.45);
+          background: rgba(0, 0, 0, 0.45);
           border-radius: 4px;
           padding: 0 4px;
         }
@@ -233,21 +241,21 @@ const bannerData = {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 14px;
-    
+
     .video-card {
       background: #fff;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
-      
+
       .thumb-wrap {
         position: relative;
         width: 100%;
         aspect-ratio: 16/9;
         background: #eee;
-        
+
         .th-image {
           position: absolute;
           top: 0;
@@ -255,7 +263,7 @@ const bannerData = {
           width: 100%;
           height: 100%;
         }
-        
+
         .episode-count {
           position: absolute;
           top: 6px;
@@ -267,7 +275,7 @@ const bannerData = {
           font-size: 12px;
           z-index: 2;
         }
-        
+
         .recommend-tag {
           position: absolute;
           left: 8px;
@@ -282,7 +290,7 @@ const bannerData = {
           gap: 2px;
           box-shadow: 0 2px 8px rgba(255, 92, 138, 0.3);
           z-index: 2;
-          
+
           .icon {
             font-size: 14px;
           }
@@ -297,11 +305,15 @@ const bannerData = {
             top: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(
+              45deg,
+              rgba(255, 255, 255, 0.2) 0%,
+              rgba(255, 255, 255, 0) 100%
+            );
             border-radius: 4px;
           }
         }
-        
+
         .video-info-bar {
           position: absolute;
           left: 0;
@@ -313,9 +325,9 @@ const bannerData = {
           padding: 0 8px 6px 8px;
           font-size: 13px;
           color: #fff;
-          text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
           z-index: 2;
-          
+
           .info-item {
             display: flex;
             align-items: center;
@@ -328,13 +340,13 @@ const bannerData = {
           .time {
             margin-left: auto;
             font-size: 12px;
-            background: rgba(0,0,0,0.45);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 4px;
             padding: 0 4px;
           }
         }
       }
-      
+
       .video-title {
         padding: 8px 10px 0 10px;
         font-size: 15px;
@@ -343,7 +355,7 @@ const bannerData = {
         width: 100%;
         line-height: 1.3;
       }
-      
+
       .video-meta {
         display: flex;
         justify-content: space-between;
@@ -445,7 +457,8 @@ const bannerData = {
         }
       }
     }
-    .banner, .video-card {
+    .banner,
+    .video-card {
       .thumb-wrap {
         .episode-count {
           top: 4px;
@@ -466,4 +479,4 @@ const bannerData = {
     }
   }
 }
-</style> 
+</style>

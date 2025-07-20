@@ -1,27 +1,27 @@
 <template>
-  <div class="auth-page">
-    <div class="auth-container">
-      <div class="auth-header">
+  <main class="auth-page">
+    <article class="auth-container">
+      <header class="auth-header">
         <h1 class="auth-title">重置密码</h1>
         <p class="auth-subtitle">请输入您的邮箱地址重置密码</p>
-      </div>
-      
+      </header>
+
       <form class="auth-form" @submit.prevent="handleResetPassword">
-        <div class="form-group">
+        <fieldset class="form-group">
           <label class="form-label">邮箱</label>
           <input
             v-model="form.email"
             type="email"
             class="form-input"
-            :class="{ 'error': emailError }"
+            :class="{ error: emailError }"
             placeholder="请输入邮箱地址"
             @blur="validateEmail"
             @input="clearEmailError"
           />
           <span v-if="emailError" class="error-message">{{ emailError }}</span>
-        </div>
-        
-        <div class="form-group">
+        </fieldset>
+
+        <fieldset class="form-group">
           <label class="form-label">新密码</label>
           <div class="password-input-wrapper">
             <input
@@ -30,19 +30,38 @@
               class="form-input"
               placeholder="请输入新密码"
             />
-            <button
-              type="button"
-              class="password-toggle"
-              @click="togglePassword"
-              tabindex="-1"
-            >
-              <svg v-if="showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4C5 4 1.73 8.11 1.13 8.93a1 1 0 0 0 0 1.14C1.73 11.89 5 16 10 16s8.27-4.11 8.87-4.93a1 1 0 0 0 0-1.14C18.27 8.11 15 4 10 4Zm0 10c-3.31 0-6.13-2.61-7.19-4C3.87 8.61 6.69 6 10 6s6.13 2.61 7.19 4C16.13 11.39 13.31 14 10 14Zm0-7a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" fill="#409eff"/></svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2.293 2.293a1 1 0 0 1 1.414 0l14 14a1 1 0 0 1-1.414 1.414l-2.09-2.09C12.47 16.2 11.26 16.5 10 16.5c-5 0-8.27-4.11-8.87-4.93a1 1 0 0 1 0-1.14c.37-.5 1.13-1.47 2.19-2.36L2.293 2.293ZM10 14.5c1.26 0 2.47-.3 3.5-.82l-1.44-1.44A3 3 0 0 1 7.76 8.94l-1.44-1.44C3.87 8.61 1.87 10.39 1.13 11.07c1.06 1.39 3.88 4 7.19 4Zm7.19-3.5c-.37.5-1.13 1.47-2.19 2.36l-1.44-1.44A3 3 0 0 0 12.24 8.94l-1.44-1.44C16.13 8.61 18.13 10.39 18.87 11.07c-1.06 1.39-3.88 4-7.19 4Z" fill="#409eff"/></svg>
+            <button type="button" class="password-toggle" tabindex="-1" @click="togglePassword">
+              <svg
+                v-if="showPassword"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M10 4C5 4 1.73 8.11 1.13 8.93a1 1 0 0 0 0 1.14C1.73 11.89 5 16 10 16s8.27-4.11 8.87-4.93a1 1 0 0 0 0-1.14C18.27 8.11 15 4 10 4Zm0 10c-3.31 0-6.13-2.61-7.19-4C3.87 8.61 6.69 6 10 6s6.13 2.61 7.19 4C16.13 11.39 13.31 14 10 14Zm0-7a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+                  fill="#409eff"
+                />
+              </svg>
+              <svg
+                v-else
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M2.293 2.293a1 1 0 0 1 1.414 0l14 14a1 1 0 0 1-1.414 1.414l-2.09-2.09C12.47 16.2 11.26 16.5 10 16.5c-5 0-8.27-4.11-8.87-4.93a1 1 0 0 1 0-1.14c.37-.5 1.13-1.47 2.19-2.36L2.293 2.293ZM10 14.5c1.26 0 2.47-.3 3.5-.82l-1.44-1.44A3 3 0 0 1 7.76 8.94l-1.44-1.44C3.87 8.61 1.87 10.39 1.13 11.07c1.06 1.39 3.88 4 7.19 4Zm7.19-3.5c-.37.5-1.13 1.47-2.19 2.36l-1.44-1.44A3 3 0 0 0 12.24 8.94l-1.44-1.44C16.13 8.61 18.13 10.39 18.87 11.07c-1.06 1.39-3.88 4-7.19 4Z"
+                  fill="#409eff"
+                />
+              </svg>
             </button>
           </div>
-        </div>
-        
-        <div class="form-group">
+        </fieldset>
+
+        <fieldset class="form-group">
           <label class="form-label">验证码</label>
           <div class="verification-input-wrapper">
             <input
@@ -62,26 +81,22 @@
               <span v-else>发送验证码</span>
             </button>
           </div>
-        </div>
-        
+        </fieldset>
+
         <div class="form-actions">
-          <button
-            type="submit"
-            class="btn-primary"
-            :disabled="!isFormValid || loading"
-          >
+          <button type="submit" class="btn-primary" :disabled="!isFormValid || loading">
             <span v-if="loading">重置中...</span>
             <span v-else>重置密码</span>
           </button>
         </div>
-        
+
         <div class="auth-links">
           <span class="auth-text">记起密码了？</span>
-          <router-link to="/login" class="auth-link">立即登录</router-link>
+          <router-link to="/login" class="auth-link"> 立即登录 </router-link>
         </div>
       </form>
-    </div>
-  </div>
+    </article>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -106,17 +121,13 @@ const countdown = ref(0)
 const loading = computed(() => authStore.loading)
 
 const isFormValid = computed(() => {
-  return form.value.email && 
-         form.value.newPassword && 
-         form.value.verificationCode && 
-         !emailError.value
+  return (
+    form.value.email && form.value.newPassword && form.value.verificationCode && !emailError.value
+  )
 })
 
 const canSendCode = computed(() => {
-  return form.value.email && 
-         form.value.newPassword && 
-         !emailError.value && 
-         countdown.value === 0
+  return form.value.email && form.value.newPassword && !emailError.value && countdown.value === 0
 })
 
 const validateEmail = () => {
@@ -142,12 +153,12 @@ const togglePassword = () => {
 
 const sendVerificationCode = async () => {
   if (!canSendCode.value) return
-  
+
   sendingCode.value = true
-  
+
   try {
     const result = await authStore.sendVerificationCode(form.value.email, 'reset')
-    
+
     if (result.success) {
       // 开始倒计时
       countdown.value = 60
@@ -160,7 +171,6 @@ const sendVerificationCode = async () => {
     } else {
       console.error('发送验证码失败:', result.message)
     }
-    
   } catch (error) {
     console.error('发送验证码失败:', error)
   } finally {
@@ -170,13 +180,13 @@ const sendVerificationCode = async () => {
 
 const handleResetPassword = async () => {
   if (!isFormValid.value) return
-  
+
   const result = await authStore.resetPassword({
     email: form.value.email,
     newPassword: form.value.newPassword,
     verificationCode: form.value.verificationCode
   })
-  
+
   if (result.success) {
     // 重置成功后跳转到登录页
     router.push('/login')
@@ -204,7 +214,7 @@ const handleResetPassword = async () => {
   padding: 40px;
   width: 100%;
   max-width: 400px;
-  
+
   @media (max-width: 480px) {
     padding: 30px 20px;
     margin: auto;
@@ -231,8 +241,18 @@ const handleResetPassword = async () => {
 .auth-form {
   .form-group {
     margin-bottom: 24px;
+    border: none;
+    padding: 0;
+    margin: 0 0 24px 0;
   }
-  
+
+  // 移除fieldset的默认样式
+  fieldset.form-group {
+    border: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
   .form-label {
     display: block;
     font-weight: 500;
@@ -240,7 +260,7 @@ const handleResetPassword = async () => {
     margin-bottom: 8px;
     font-size: 14px;
   }
-  
+
   .form-input {
     width: 100%;
     padding: 12px 16px;
@@ -249,24 +269,24 @@ const handleResetPassword = async () => {
     font-size: 14px;
     transition: border-color 0.2s ease;
     background: white;
-    
+
     &:focus {
       outline: none;
       border-color: var(--primary-color);
     }
-    
+
     &.error {
       border-color: var(--danger-color);
     }
-    
+
     &::placeholder {
       color: var(--text-color-secondary);
     }
   }
-  
+
   .password-input-wrapper {
     position: relative;
-    
+
     .password-toggle {
       position: absolute;
       right: 12px;
@@ -287,15 +307,15 @@ const handleResetPassword = async () => {
       }
     }
   }
-  
+
   .verification-input-wrapper {
     display: flex;
     gap: 12px;
-    
+
     .form-input {
       flex: 1;
     }
-    
+
     .btn-verification {
       padding: 12px 16px;
       background: var(--primary-color);
@@ -304,25 +324,27 @@ const handleResetPassword = async () => {
       border-radius: 8px;
       font-size: 12px;
       cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
       white-space: nowrap;
       min-width: 100px;
-      
+
       &:hover:not(:disabled) {
         background: #337ecc;
       }
-      
+
       &:disabled {
         background: var(--info-color);
         cursor: not-allowed;
       }
-      
+
       &:active {
         transform: scale(0.95);
       }
     }
   }
-  
+
   .error-message {
     color: var(--danger-color);
     font-size: 12px;
@@ -345,17 +367,19 @@ const handleResetPassword = async () => {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+
   &:hover:not(:disabled) {
     background: #337ecc;
   }
-  
+
   &:disabled {
     background: var(--info-color);
     cursor: not-allowed;
   }
-  
+
   &:active {
     transform: scale(0.95);
   }
@@ -381,9 +405,9 @@ const handleResetPassword = async () => {
   text-decoration: none;
   font-size: 14px;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: #337ecc;
   }
 }
-</style> 
+</style>

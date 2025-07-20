@@ -1,13 +1,24 @@
 <template>
-  <div class="search-page">
-    <SearchInputBar @search="onSearch" v-model:keyword="keyword" @input="onInput" />
-    <HotSearchList v-if="!keyword && !showResult" @select="handleSelect" />
-    <SearchSuggestList v-else-if="!showResult" :keyword="keyword" :recommend-list="recommendList" :text-list="textList" @select="handleSelect" />
-  </div>
+  <main class="search-page">
+    <header class="search-header">
+      <SearchInputBar v-model:keyword="keyword" @search="onSearch" @input="onInput" />
+    </header>
+
+    <section class="search-content">
+      <HotSearchList v-if="!keyword && !showResult" @select="handleSelect" />
+      <SearchSuggestList
+        v-else-if="!showResult"
+        :keyword="keyword"
+        :recommend-list="recommendList"
+        :text-list="textList"
+        @select="handleSelect"
+      />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
-import { ref} from 'vue'
+import { ref } from 'vue'
 import SearchInputBar from '@/components/search/SearchInputBar.vue'
 import HotSearchList from '@/components/search/HotSearchList.vue'
 import SearchSuggestList from '@/components/search/SearchSuggestList.vue'
@@ -78,7 +89,7 @@ function loadMore() {
   if (error.value) return
   loadingMore.value = true
   error.value = false
-  
+
   setTimeout(() => {
     try {
       const next = displayVideos.value.length + PAGE_SIZE
@@ -93,25 +104,9 @@ function loadMore() {
   }, 600)
 }
 
-function refresh() {
-  error.value = false
-  errorMessage.value = ''
-  onSearch(keyword.value)
-}
-
-function retry() {
-  error.value = false
-  errorMessage.value = ''
-  loadMore()
-}
-
 function handleSelect(val: string) {
   keyword.value = val
   onSearch(val)
-}
-
-function handleVideoSelect(video: any) {
-  router.push({ path: '/play', query: { id: video.id } })
 }
 </script>
 
@@ -123,4 +118,4 @@ function handleVideoSelect(video: any) {
   padding-bottom: 16px;
   box-sizing: border-box;
 }
-</style> 
+</style>

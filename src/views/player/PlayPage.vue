@@ -1,53 +1,65 @@
 <template>
-  <div class="play-page">
+  <main class="play-page">
     <!-- 视频区域 -->
-    <div class="video-section">
+    <section class="video-section">
       <VideoPlayer :config="videoConfig" @ended="handleVideoEnded" />
-    </div>
+    </section>
+
     <!-- 下方内容聚合在一个卡片内 -->
-    <div class="main-card">
-      <div class="main-info-section">
+    <article class="main-card">
+      <header class="main-info-section">
         <PlayMainInfo
           title="少年歌行"
           type="出品"
-          playCount="2.3亿"
-          favCount="527.2万"
-          onlineCount="1"
+          play-count="2.3亿"
+          fav-count="527.2万"
+          online-count="1"
           score="9.5"
         />
-      </div>
-      <div class="episode-section">
+      </header>
+
+      <section class="episode-section">
         <PlayEpisodePanel
           :seasons="seasonList"
           :episodes="allEpisodes"
           :active-season="activeSeasonIndex"
           :active-episode="activeEpisodeIndex"
-          @season-change="onSeasonChange"
-          @episode-change="onEpisodeChange"
           status="已完结"
           :total="currentTotalEpisodes"
+          @season-change="onSeasonChange"
+          @episode-change="onEpisodeChange"
         />
-      </div>
-      <div class="tab-section">
-        <PlayTabPanel :tabs="tabs" :active-tab="activeTab" @tab-change="val => activeTab = val">
+      </section>
+
+      <section class="tab-section">
+        <PlayTabPanel :tabs="tabs" :active-tab="activeTab" @tab-change="val => (activeTab = val)">
           <template #简介>
-            <div>《少年歌行》是一部国创动画，讲述初入江湖的故事...</div>
+            <article class="intro-content">
+              <p>《少年歌行》是一部国创动画，讲述初入江湖的故事...</p>
+            </article>
           </template>
           <template #评论>
-            <div>评论区（可集成评论组件）</div>
+            <section class="comments-section">
+              <p>评论区（可集成评论组件）</p>
+            </section>
           </template>
           <template #弹幕>
-            <div>弹幕区（可集成弹幕组件）</div>
+            <section class="danmaku-section">
+              <p>弹幕区（可集成弹幕组件）</p>
+            </section>
           </template>
         </PlayTabPanel>
-      </div>
-    </div>
-    <NextEpisodeNotification
-      v-model="showNextEpisodeNotification"
-      :duration="3"
-      @timeout="handleNextEpisodeTimeout"
-    />
-  </div>
+      </section>
+    </article>
+
+    <aside class="notification-area">
+      <NextEpisodeNotification
+        v-model="showNextEpisodeNotification"
+        :duration="3"
+        @timeout="handleNextEpisodeTimeout"
+      />
+    </aside>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -65,17 +77,57 @@ const seasonsData = [
     seasonId: 1,
     seasonTitle: '第一季',
     episodes: [
-      { episodeId: 101, title: '第1话 初入江湖', url: 'https://www.w3schools.com/html/mov_bbb.mp4', vip: false, cover: 'https://img1.baidu.com/it/u=1234567890,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800', available: true },
-      { episodeId: 102, title: '第2话 雪夜杀机', url: 'https://www.w3schools.com/html/movie.mp4', vip: false, cover: 'https://img1.baidu.com/it/u=2234567890,2234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800', available: true },
-      { episodeId: 103, title: '第3话 美人三顾', url: 'https://www.w3schools.com/html/horse.mp4', vip: true, cover: 'https://img1.baidu.com/it/u=3234567890,3234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800', available: true }
+      {
+        episodeId: 101,
+        title: '第1话 初入江湖',
+        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        vip: false,
+        cover:
+          'https://img1.baidu.com/it/u=1234567890,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800',
+        available: true
+      },
+      {
+        episodeId: 102,
+        title: '第2话 雪夜杀机',
+        url: 'https://www.w3schools.com/html/movie.mp4',
+        vip: false,
+        cover:
+          'https://img1.baidu.com/it/u=2234567890,2234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800',
+        available: true
+      },
+      {
+        episodeId: 103,
+        title: '第3话 美人三顾',
+        url: 'https://www.w3schools.com/html/horse.mp4',
+        vip: true,
+        cover:
+          'https://img1.baidu.com/it/u=3234567890,3234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800',
+        available: true
+      }
     ]
   },
   {
     seasonId: 2,
     seasonTitle: '第二季',
     episodes: [
-      { episodeId: 201, title: '第1话', url: 'https://www.w3schools.com/html/mov_bbb.mp4', vip: false, cover: 'https://img1.baidu.com/it/u=4234567890,4234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800', available: true },
-      { episodeId: 202, title: '第2话', url: 'https://www.w3schools.com/html/movie.mp4', vip: true, cover: 'https://img1.baidu.com/it/u=5234567890,5234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800', available: false }
+      {
+        episodeId: 201,
+        title: '第1话',
+        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        vip: false,
+        cover:
+          'https://img1.baidu.com/it/u=4234567890,4234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800',
+        available: true
+      },
+      {
+        episodeId: 202,
+        title: '第2话',
+        url: 'https://www.w3schools.com/html/movie.mp4',
+        vip: true,
+        cover:
+          'https://img1.baidu.com/it/u=5234567890,5234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=800',
+        available: false
+      }
     ]
   }
 ]
@@ -117,23 +169,27 @@ const videoConfig = ref({
 })
 
 // 监听季和集的变化
-watch([activeSeasonIndex, activeEpisodeIndex], () => {
-  const ep = getCurrentEpisode(activeSeasonIndex.value, activeEpisodeIndex.value)
-  if (ep) {
-    videoConfig.value = {
-      ...videoConfig.value,
-      url: ep.url,
-      poster: ep.cover,
-      autoplay: true
+watch(
+  [activeSeasonIndex, activeEpisodeIndex],
+  () => {
+    const ep = getCurrentEpisode(activeSeasonIndex.value, activeEpisodeIndex.value)
+    if (ep) {
+      videoConfig.value = {
+        ...videoConfig.value,
+        url: ep.url,
+        poster: ep.cover,
+        autoplay: true
+      }
+    } else {
+      ElNotification.warning({
+        title: '提示',
+        message: '该集暂不可用',
+        duration: 2000
+      })
     }
-  } else {
-    ElNotification.warning({
-      title: '提示',
-      message: '该集暂不可用',
-      duration: 2000
-    })
-  }
-}, { immediate: true })
+  },
+  { immediate: true }
+)
 
 // 切换季时重置集数索引
 watch(activeSeasonIndex, () => {
@@ -243,7 +299,9 @@ function onEpisodeChange(val: number) {
     padding: 0 0 10px 0;
   }
 }
-.main-info-section, .episode-section, .tab-section {
+.main-info-section,
+.episode-section,
+.tab-section {
   width: 100%;
   background: #fff;
   box-sizing: border-box;
@@ -260,4 +318,4 @@ function onEpisodeChange(val: number) {
   overflow-y: auto;
   max-height: 60vh;
 }
-</style> 
+</style>

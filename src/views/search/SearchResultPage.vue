@@ -1,20 +1,31 @@
 <template>
-  <div class="search-result-page">
-    <div class="fixed-header">
+  <main class="search-result-page">
+    <header class="fixed-header">
       <SearchInputBar v-model:keyword="keyword" @search="onSearch" @input="onInput" />
-      <div v-if="keyword && !showResult" class="suggest-area">
-        <SearchSuggestList :keyword="keyword" :recommend-list="recommendList" :text-list="textList" @select="handleSuggestSelect" />
-      </div>
+      <section v-if="keyword && !showResult" class="suggest-area">
+        <SearchSuggestList
+          :keyword="keyword"
+          :recommend-list="recommendList"
+          :text-list="textList"
+          @select="handleSuggestSelect"
+        />
+      </section>
       <div v-if="keyword && showResult" class="search-keyword-tip">
         与 <span class="highlight">{{ keyword }}</span> 相关的内容
       </div>
-    </div>
-    <div class="content-area">
-      <InfiniteScroll v-if="showResult" :loading="loading" :has-more="hasMore" @loadMore="loadMore">
+    </header>
+
+    <section class="content-area">
+      <InfiniteScroll
+        v-if="showResult"
+        :loading="loading"
+        :has-more="hasMore"
+        @load-more="loadMore"
+      >
         <SearchVideoGrid :keyword="keyword" :videos="displayVideos" @select="handleVideoSelect" />
       </InfiniteScroll>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -27,7 +38,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const keyword = ref(route.query.keyword as string || '')
+const keyword = ref((route.query.keyword as string) || '')
 const displayVideos = ref<any[]>([])
 const loading = ref(false)
 const hasMore = ref(true)
@@ -103,13 +114,15 @@ function fakeVideo(idx: number) {
     id: idx + 1,
     cover: `https://picsum.photos/400/220?random=${idx + 1}`,
     title: `示例视频${idx + 1}`,
-    up: ['沙雕UP主','搞笑日常','动漫菌','科技宅','美食家','音乐人','游戏咖','生活家'][idx % 8],
+    up: ['沙雕UP主', '搞笑日常', '动漫菌', '科技宅', '美食家', '音乐人', '游戏咖', '生活家'][
+      idx % 8
+    ],
     cat: cat.name,
     catColor: cat.color,
     catBg: cat.bg,
     episodes: Math.floor(Math.random() * 15) + 10,
     views: `${(Math.random() * 100 + 1).toFixed(1)}万`,
-    duration: `${Math.floor(Math.random()*4+1)}:${(Math.random()*60|0).toString().padStart(2,'0')}`
+    duration: `${Math.floor(Math.random() * 4 + 1)}:${((Math.random() * 60) | 0).toString().padStart(2, '0')}`
   }
 }
 
@@ -173,4 +186,4 @@ onMounted(() => {
     color: #ff5c8a;
   }
 }
-</style> 
+</style>

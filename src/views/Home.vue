@@ -1,13 +1,40 @@
 <template>
-  <div class="home">
-    <HeaderBar />
-    <CategoryBar @category-change="handleCategoryChange" />
-    <BannerArea />
-    <FollowUpdate />
-    <SectionDivider :title="sectionTitle" />
-    <VideoGrid :videos="videos" :loading="loading" :hasMore="hasMore" @load-more="loadMore" />
-    <BottomNav />
-  </div>
+  <main class="home">
+    <header class="home-header">
+      <HeaderBar />
+      <nav class="category-navigation">
+        <CategoryBar @category-change="handleCategoryChange" />
+      </nav>
+    </header>
+
+    <section class="home-content">
+      <section class="banner-section">
+        <BannerArea />
+      </section>
+
+      <section class="follow-section">
+        <FollowUpdate />
+      </section>
+
+      <section class="video-section">
+        <header class="section-header">
+          <SectionDivider :title="sectionTitle" />
+        </header>
+        <article class="video-content">
+          <VideoGrid
+            :videos="videos"
+            :loading="loading"
+            :has-more="hasMore"
+            @load-more="loadMore"
+          />
+        </article>
+      </section>
+    </section>
+
+    <nav class="bottom-navigation">
+      <BottomNav />
+    </nav>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -42,19 +69,21 @@ const MAX_TOTAL = 30
 
 function fakeVideo(idx: number): VideoItem {
   return {
-    title: `示例视频${idx+1}`,
-    poster: `https://picsum.photos/600/340?random=${idx+1}`,
-    views: `${(Math.random()*50+1).toFixed(1)}万`,
-    duration: `${Math.floor(Math.random()*4+1)}:${(Math.random()*60|0).toString().padStart(2,'0')}`,
-    up: ['沙雕UP主','搞笑日常','动漫菌','科技宅','美食家','音乐人','游戏咖','生活家'][idx%8],
-    cat: ['趣味','搞笑','动漫','科技','美食','音乐','游戏','生活'][idx%8],
+    title: `示例视频${idx + 1}`,
+    poster: `https://picsum.photos/600/340?random=${idx + 1}`,
+    views: `${(Math.random() * 50 + 1).toFixed(1)}万`,
+    duration: `${Math.floor(Math.random() * 4 + 1)}:${((Math.random() * 60) | 0).toString().padStart(2, '0')}`,
+    up: ['沙雕UP主', '搞笑日常', '动漫菌', '科技宅', '美食家', '音乐人', '游戏咖', '生活家'][
+      idx % 8
+    ],
+    cat: ['趣味', '搞笑', '动漫', '科技', '美食', '音乐', '游戏', '生活'][idx % 8],
     episodes: Math.floor(Math.random() * 20) + 10,
     isRecommend: 0
   }
 }
 
 function initVideos() {
-  allVideos.value = Array.from({length: PAGE_SIZE * 2}).map((_,i)=>fakeVideo(i))
+  allVideos.value = Array.from({ length: PAGE_SIZE * 2 }).map((_, i) => fakeVideo(i))
   videos.value = allVideos.value.slice(0, PAGE_SIZE)
   hasMore.value = videos.value.length < MAX_TOTAL
 }
@@ -106,4 +135,4 @@ const handleCategoryChange = (category: string, subCategory?: string) => {
     padding-top: 96px;
   }
 }
-</style> 
+</style>

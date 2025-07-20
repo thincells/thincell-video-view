@@ -1,8 +1,12 @@
 <template>
-  <div class="profile-page">
-    <user-info />
-    <bottom-nav />
-  </div>
+  <main class="profile-page">
+    <section class="profile-content">
+      <user-info />
+    </section>
+    <nav class="bottom-navigation">
+      <bottom-nav />
+    </nav>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -15,4 +19,4 @@ import BottomNav from '@/components/layout/BottomNav.vue'
   min-height: 100vh;
   padding-bottom: 56px;
 }
-</style> 
+</style>
