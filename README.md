@@ -300,13 +300,4 @@ npm run preview
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
-## 📞 联系方式
-
-如有问题或建议，请通过以下方式联系：
-
-- 项目 Issues: [GitHub Issues](https://github.com/your-username/thincell-video-view/issues)
-- 邮箱: your-email@example.com
-
----
-
 **ThinCell 视频播放器** - 让视频播放更简单、更高效！
